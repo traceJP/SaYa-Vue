@@ -17,7 +17,7 @@
                 />
             </el-form-item>
             <el-form-item style="padding: 1rem 5rem">
-                <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
         </el-form>
@@ -53,7 +53,7 @@ export default {
                     { validator: validatePass, trigger: 'blur' }
                 ],
             }
-        };
+        }
     },
     methods: {
         submitForm(formName) {

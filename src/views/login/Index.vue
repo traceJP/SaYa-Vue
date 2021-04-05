@@ -2,7 +2,7 @@
     <div class="index-box">
         <div class="main">
             <div class="logoBox">
-                <img src="../../assets/logo.png" alt="沙耶云盘">
+                <img src="../../assets/logo-vue.png" alt="沙耶云盘">
                 <span>沙耶云盘</span>
             </div>
             <el-tabs type="border-card" :stretch="true" style="height: 100%;">
@@ -17,7 +17,6 @@
                 </el-tab-pane>
             </el-tabs>
         </div>
-
     </div>
 </template>
 
@@ -34,7 +33,7 @@ export default {
 <style scoped>
     .index-box {
         height: 100%;
-        background-color: rgb(236,239,255);
+        background-color: #ECEFFF;
     }
     .main {
         width: 348px;
