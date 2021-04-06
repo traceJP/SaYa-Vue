@@ -4,7 +4,9 @@
             <el-aside>
                 <Sidebar/>
             </el-aside>
-            <el-main>主内容框</el-main>
+            <el-main>
+                <router-view/>
+            </el-main>
         </el-container>
     </div>
 </template>
@@ -31,7 +33,7 @@ name: "Index",
 .el-main {
     background-color: #E9EEF3;
     color: #333;
-    text-align: center;
-    line-height: 160px;
+    /*text-align: center;*/
+    /*line-height: 160px;*/
 }
 </style>

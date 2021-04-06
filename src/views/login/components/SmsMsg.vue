@@ -29,7 +29,7 @@
 
 <script>
 
-import {mimicBox} from "@/utils/mimicbox";
+import {topMimicBox} from "@/utils/mimicbox";
 
 export default {
     name: "SmsMsg",
@@ -78,7 +78,7 @@ export default {
         },
         askSmsCode() {
             // TODO: 发送验证码请求... 2021.4.4
-            mimicBox.success('短信验证码已发送，可能会有延后请耐心等待')
+            topMimicBox.success('短信验证码已发送，可能会有延后请耐心等待')
             this.smsButtonStatus = true
             let count = 60
             let timer = setInterval(() => {

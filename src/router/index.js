@@ -10,11 +10,6 @@ const constantRouterMap = [
         component: () => import('@/front/Index')
     },
     {
-        name: '用户首页',
-        path: '/index',
-        component: () => import('@/views/Index')
-    },
-    {
         name: '登录页',
         path: '/sign',
         component: () => import('@/views/login/Index'),

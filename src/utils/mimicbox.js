@@ -19,4 +19,8 @@ const resetMessage = (options) => {
     }
 })
 
-export const mimicBox = resetMessage
+export const topMimicBox = resetMessage
+
+
+
+

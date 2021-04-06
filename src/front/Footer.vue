@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="content">
-            <div>开始使用，由崎沙耶云盘</div>
+            <div>开始使用，由崎纱耶云盘</div>
             <el-button type="primary">
                 <router-link to="/index" tag="div">
                     前往使用
@@ -9,7 +9,7 @@
             </el-button>
         </div>
         <div class="tail">
-            <p>沙耶云盘项目</p>
+            <p>纱耶云盘项目</p>
             <p>作者：LJP</p>
         </div>
     </div>
