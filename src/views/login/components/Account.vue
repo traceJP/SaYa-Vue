@@ -1,75 +1,74 @@
 <template>
-    <div>
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
-            <el-form-item prop="account">
-                <el-input
-                    placeholder="请输入邮箱 / 手机号"
-                    v-model="ruleForm.account"
-                    autocomplete="off"
-                />
-            </el-form-item>
-            <el-form-item prop="pass">
-                <el-input
-                    type="password"
-                    placeholder="登录密码"
-                    v-model="ruleForm.pass"
-                    autocomplete="off"
-                />
-            </el-form-item>
-            <el-form-item style="padding: 1rem 5rem">
-                <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                <el-button @click="resetForm('ruleForm')">重置</el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+  <div>
+    <el-form :model="ruleForm" :rules="rules" class="demo-ruleForm" ref="ruleForm" status-icon>
+      <el-form-item prop="account">
+        <el-input autocomplete="off" placeholder="请输入手机号" v-model="ruleForm.account"/>
+      </el-form-item>
+      <el-form-item prop="pass">
+        <el-input autocomplete="off" placeholder="登录密码" type="password" v-model="ruleForm.pass"/>
+      </el-form-item>
+      <el-form-item style="padding: 1rem 5rem">
+        <el-button @click="submitForm('ruleForm')" type="primary">登录</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
+import {loginByPwd, afterLogin} from "@/api/login";
+
 export default {
-    name: "account",
-    data() {
-        let validateAccount = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('邮箱/手机号不能为空'));
-            }
-            callback()
-        }
-        let validatePass = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('密码不能为空'));
-            }
-            callback()
-        }
-        return {
-            ruleForm: {
-                account: '',
-                pass: '',
-            },
-            rules: {
-                account: [
-                    { validator: validateAccount, trigger: 'blur' }
-                ],
-                pass: [
-                    { validator: validatePass, trigger: 'blur' }
-                ],
-            }
-        }
-    },
-    methods: {
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    alert('submit!');
-                } else {
-                    console.log('error submit!!');
-                    return false;
-                }
-            });
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-        }
+  name: "account",
+  data() {
+    // 账号输入框校验
+    let validateAccount = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('手机号不能为空'));
+      }
+      let regular = /^1[3456789]\d{9}$/
+      if (!(regular.test(value))) {
+        callback(new Error('手机号码格式不正确，请重新输入'))
+      }
+      callback()
     }
+    // 密码输入框校验
+    let validatePass = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('密码不能为空'));
+      }
+      callback()
+    }
+    return {
+      ruleForm: {
+        account: '',
+        pass: '',
+      },
+      rules: {
+        account: [
+          {validator: validateAccount, trigger: 'blur'}
+        ],
+        pass: [
+          {validator: validatePass, trigger: 'blur'}
+        ],
+      }
+    }
+  },
+  methods: {
+    // 登录方法
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          loginByPwd(this.ruleForm.account, this.ruleForm.pass)
+              .then((response) => response.data.status === 200 ? afterLogin(response) : this.ruleForm.pass = '')
+        }
+      })
+    },
+    // 表单重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
+    }
+  }
 }
 
 </script>
