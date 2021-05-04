@@ -2,7 +2,7 @@
   <div class="index-box">
     <div class="main">
       <div class="logoBox">
-        <img alt="沙耶云盘" src="../../assets/logo-vue.png"/>
+        <img alt="沙耶云盘" src="../../assets/logo.png"/>
         <span>沙耶云盘</span>
       </div>
       <el-tabs :stretch="true" style="height: 100%;" type="border-card">

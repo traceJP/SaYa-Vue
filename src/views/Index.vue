@@ -1,22 +1,28 @@
 <template>
   <div class="master">
     <el-container>
-      <el-aside>
+      <el-aside width="200px">
         <Sidebar></Sidebar>
       </el-aside>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
+      <el-container>
+        <el-header>
+          <Header></Header>
+        </el-header>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 
 export default {
   name: "Index",
-  components: {Sidebar}
+  components: {Header, Sidebar}
 }
 </script>
 

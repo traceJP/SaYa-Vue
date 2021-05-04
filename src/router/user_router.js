@@ -9,13 +9,11 @@ const userRouterMap = [
         name: '云盘操作页',
         path: '/user',
         component: () => import('@/views/drive/Index'),
-        children: [
-          {
-            name: '文件夹操作页（通过文件夹id选择）',
-            path: 'folder/:id',
-            component: () => import('@/views/drive/Index'),
-          },
-        ],
+      },
+      {
+        name: '文件夹操作页（通过文件夹id选择）',
+        path: 'folder/:id',
+        component: () => import('@/views/drive/Index'),
       },
     ]
   }

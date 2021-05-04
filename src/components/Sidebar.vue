@@ -4,30 +4,40 @@
       <img src="../assets/logo.png" alt="纱耶云盘">
       <span>纱耶云盘</span>
     </div>
-    <el-menu
-        default-active="1"
-        class="el-menu-vertical-demo"
-        :background-color="'#F5F5F6'"
-        :router="true"
-    >
-      <!-- TODO: 后端请求菜单项 -->
-      <!-- 暂时写死 -->
-      <el-menu-item index="1" :route="'/user'">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航一</span>
-      </el-menu-item>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
+    <el-menu default-active="0" class="el-menu-vertical-demo" :background-color="'#F5F5F6'" :router="true">
+      <el-menu-item v-for="(item, index) in menu" :key="index" :index="index+''" :route="item.url">
+        <i :class="item.icon"></i>
+        <span slot="title">{{ item.menuName }}</span>
       </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
+import {getMenu} from "@/api/menu";
+
 export default {
   name: "Sidebar",
-  methods: {}
+  data() {
+    return {
+      menu: [{
+        menuName: '',
+        menuType: '',
+        perms: '',
+        url: '',
+        icon: '',
+        parent_id: '',
+        order_num: '',
+        remake: '',
+      }],
+    }
+  },
+  methods: {
+  },
+  created() {
+    // 菜单栏资源请求
+    getMenu().then((response) => this.menu = response)
+  }
 }
 </script>
 

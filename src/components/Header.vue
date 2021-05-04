@@ -1,58 +1,55 @@
 <template>
-  <div class="master">
-    <div>
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="'/index'">{{ title }}</el-breadcrumb-item>
-        <el-breadcrumb-item v-for="(item, index) in itemData" :key="index" :to="'/user/folder/' + item.id">
-          {{ item.name }}
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div>
-      <!-- 查询按钮 -->
-      <el-button icon="el-icon-search" circle/>
-      <!-- 新建按钮 -->
-      <el-dropdown v-if="createButton">
-        <el-button icon="el-icon-plus" circle type="primary"/>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>新建文件夹</el-dropdown-item>
-          <el-dropdown-item divided>上传文件</el-dropdown-item>
-          <el-dropdown-item disabled>上传文件夹</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+  <div>
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu-item index="1">管理中心</el-menu-item>
+      <el-menu-item index="2">我的信息</el-menu-item>
+      <el-menu-item index="3">{{ nowTimeTitle }}</el-menu-item>
+    </el-menu>
   </div>
 </template>
 
 <script>
+import local from "@/store/local"
+
 export default {
   name: "Header",
   data() {
     return {
-      // 当传入的title是文件时，展示头部的创建按钮
-      createButton: this.title === '文件'
+      // 菜单元素索引
+      activeIndex: '1',
+      activeIndex2: '2',
+      // 时钟
+      nowTimeTitle: '',
     }
   },
-  props: {
-    title: String,
-    itemData: {
-      type: Array,
-      default: () => [],
+  methods: {
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath)
     },
+    // 时钟标题方法
+    clockTitle() {
+      let hours = new Date().getHours()
+      if (hours < 12) {
+        this.nowTimeTitle = '上午好'
+      } else if (hours < 14) {
+        this.nowTimeTitle = '中午好'
+      } else if (hours < 18) {
+        this.nowTimeTitle = '下午好'
+      } else if (hours < 25) {
+        this.nowTimeTitle = '晚上好'
+      }
+      this.nowTimeTitle += ',' + local.getUserInfo().userName
+    },
+  },
+  created() {
+    this.clockTitle()
+    setInterval(() => {
+      this.clockTitle()
+    }, 60000)
   },
 }
 </script>
 
 <style scoped>
-.master {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-.el-dropdown {
-  line-height: 100%;
-  margin-left: 20px;
-}
 </style>
