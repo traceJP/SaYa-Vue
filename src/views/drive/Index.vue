@@ -23,7 +23,7 @@
   
       <!-- 用户信息展示框 -->
       <grid-item :x="layout[3].x" :y="layout[3].y" :w="layout[3].w" :h="layout[3].h" :i="layout[3].i">
-        <span class="text">444</span>
+        <user-info></user-info>
       </grid-item>
       
     </grid-layout>
@@ -33,9 +33,11 @@
 <script>
 import {GridLayout, GridItem} from "vue-grid-layout"
 import Volume from "@/views/drive/components/Volume";
+import UserInfo from "@/views/drive/components/UserInfo";
 export default {
   name: "Index",
   components: {
+    UserInfo,
     Volume,
     GridLayout,
     GridItem,
@@ -64,7 +66,7 @@ export default {
 <style scoped>
 .vue-grid-item:not(.vue-grid-placeholder) {
   background: #d3dce6;
-  box-shadow: 0 2px 20px 0 rgb(0 0 5%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   border-radius: 12px;
 }
 </style>
