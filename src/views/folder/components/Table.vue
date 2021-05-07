@@ -1,12 +1,7 @@
 <template>
   <div>
-    <el-table
-        :data="tableData"
-        @selection-change="handleSelectionChange"
-        max-height="800"
-        ref="multipleTable"
-        tooltip-effect="dark"
-    >
+    <el-table :data="folderList" @selection-change="handleSelectionChange" max-height="800" ref="multipleTable"
+              tooltip-effect="dark">
       <el-table-column type="selection" width="45"></el-table-column>
       <el-table-column label="名称" min-width="300" prop="name"></el-table-column>
       <el-table-column label="修改时间" min-width="110" prop="date"></el-table-column>
@@ -33,15 +28,10 @@
 <script>
 export default {
   name: "Table",
-  data() {
-    return {
-      multipleSelection: []
-    }
-  },
-  props: {
-    tableData: {
-      type: Array,
-      default: () => []
+  computed: {
+    // 分文件夹和文件获取content中的内容
+    folderList() {
+      return this.$store.getters.getFolderContent
     }
   },
   methods: {
@@ -54,9 +44,6 @@ export default {
         this.$refs.multipleTable.clearSelection();
       }
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    }
   },
 }
 </script>

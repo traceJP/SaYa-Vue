@@ -1,12 +1,6 @@
 <template>
   <div class="master">
-    <el-progress
-        type="circle"
-        :percentage="percentage"
-        :color="color"
-        :format="setContent"
-    >
-    </el-progress>
+    <el-progress type="circle" :percentage="percentage" :color="color" :format="setContent"></el-progress>
     <div class="text">
       <slot></slot>
     </div>
@@ -17,51 +11,35 @@
 <script>
 export default {
   name: "CircleProgress",
-  data() {
-    return {
-      color: '',
-      percentage: 0,
-      formatTotal: '',
-      formatUse: '',
-    }
-  },
   props: {
     // 总数
     total: Number,
     // 已使用数
     use: Number,
   },
-  watch: {
-    total: {
-      handler(val) {
-        this.percentage = Math.round(this.use / val * 100)
-        this.formatTotal = this.formatCalculate(val)
-      },
-      immediate: true
+  computed: {
+    formatTotal() {
+      return this.formatCalculate(this.total)
     },
-    use: {
-      handler(val) {
-        this.percentage = Math.round(val / this.total * 100)
-        this.formatUse = this.formatCalculate(val)
-      },
-      immediate: true
+    formatUse() {
+      return this.formatCalculate(this.use)
     },
-    percentage: {
-      handler(val) {
-        // 越大越告警
-        if (val <= 10) {
-          this.color = '#6f7ad3'
-        } else if (val <= 30) {
-          this.color = '#1989fa'
-        } else if (val <= 60) {
-          this.color = '#5cb87a'
-        } else if (val <= 80) {
-          this.color = '#e6a23c'
-        } else if (val <= 100) {
-          this.color = '#f56c6c'
-        }
-      },
-      immediate: true
+    percentage() {
+      return Math.round(this.use / this.total * 100)
+    },
+    color() {
+      let percentage = this.percentage
+      if (percentage <= 10) {
+        return '#6f7ad3'
+      } else if (percentage <= 30) {
+        return '#1989fa'
+      } else if (percentage <= 60) {
+        return '#5cb87a'
+      } else if (percentage <= 80) {
+        return '#e6a23c'
+      } else {
+        return '#f56c6c'
+      }
     },
   },
   methods: {
@@ -99,6 +77,7 @@ export default {
 .master {
   text-align: center;
 }
+
 .text {
   margin-top: 0.6rem;
   font-weight: 800;

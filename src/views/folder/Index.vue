@@ -1,7 +1,14 @@
 <template>
   <div>
-    <Header :item-data="breadcrumbData" :title="'文件'" class="header"/>
-    <Table/>
+    <el-container>
+      <el-header>
+        <Header class="header"></Header>
+      </el-header>
+      <el-main>
+        <Table></Table>
+        <!-- 除了table布局还可以使用flex布局，可以根据vuex中的状态进行选择，而子组件如Header中可以对vuex中的状态进行改变 -->
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -12,22 +19,24 @@ import Table from "@/views/folder/components/Table";
 export default {
   name: "Index",
   components: {Table, Header},
-  data() {
-    return {
-      breadcrumbData: [{name: 1, id: 123}, {name: 2, id: 666}]
-      //{name: 1, id: 123}, {name: 2, id: 666}
+  watch: {
+    folderHash: {
+      handler(val) {
+        this.$store.commit('setFolderHash', val)
+        this.$store.dispatch('listContent')
+        this.$store.dispatch('getUntilRoot')
+      },
+      immediate: true,
+    },
+  },
+  computed: {
+    folderHash() {
+      return this.$route.params.id
     }
   },
-  created() {
-    // alert(this.$route.params.id)
-  },
-  methods: {},
-  
 }
 </script>
 
 <style scoped>
-.header {
-  margin: 20px 0;
-}
+
 </style>

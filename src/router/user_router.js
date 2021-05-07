@@ -12,8 +12,8 @@ const userRouterMap = [
       },
       {
         name: '文件夹操作页（通过文件夹id选择）',
-        path: 'folder/:id',
-        component: () => import('@/views/drive/Index'),
+        path: '/folder/:id',
+        component: () => import('@/views/folder/Index'),
       },
     ]
   }
