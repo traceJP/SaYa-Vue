@@ -21,7 +21,7 @@ const constantRouterMap = [
 // 初始化路由
 function storeRouter(router) {
   if (local.getUserInfo() && local.getToken()) {
-    let role = local.getUserInfo().userType
+    let role = local.getUserInfo().type
     if (role === '00') {
       // 注册用户路由
       router.addRoutes(userRouterMap)

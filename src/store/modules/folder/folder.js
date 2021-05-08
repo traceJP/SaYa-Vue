@@ -1,4 +1,5 @@
 import {get, list} from "@/api/folder";
+import button from "@/store/modules/folder/button"
 
 const folder = {
 
@@ -37,10 +38,10 @@ const folder = {
     },
     recursionToRoot({state, dispatch}, hash) {
       get(hash).then((response) => {
-        if (response.folderRoot === '0') {
+        if (response.isRoot === '0') {
           // 入栈并递归父节点
           state.folderStack.unshift(response)
-          dispatch('recursionToRoot', response.folderParentHash)
+          dispatch('recursionToRoot', response.parentHash)
         }
       })
     },
@@ -57,6 +58,10 @@ const folder = {
       return state.folderContent
     },
   },
+
+  modules: {
+    button: button,
+  }
 
 }
 

@@ -1,6 +1,6 @@
 import request from '@/api/base/axios_config'
 
-export function create(data) {
+export function createFolder(data) {
   return request({
     url: '/folder/create',
     method: 'post',
@@ -8,7 +8,7 @@ export function create(data) {
   })
 }
 
-export function remove(folderHash) {
+export function removeFolder(folderHash) {
   return request({
     url: '/folder/delete',
     method: 'delete',
@@ -18,14 +18,11 @@ export function remove(folderHash) {
   })
 }
 
-export function update(data, folderHash) {
+export function updateFolder(data) {
   return request({
     url: '/folder/update',
     method: 'put',
     data: data,
-    params: {
-      folderHash: folderHash,
-    },
   })
 }
 

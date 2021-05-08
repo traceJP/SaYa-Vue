@@ -7,7 +7,7 @@
     <el-menu default-active="0" class="el-menu-vertical-demo" :background-color="'#F5F5F6'" :router="true">
       <el-menu-item v-for="(item, index) in menu" :key="index" :index="index+''" :route="item.url">
         <i :class="item.icon"></i>
-        <span slot="title">{{ item.menuName }}</span>
+        <span slot="title">{{ item.name }}</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -21,8 +21,8 @@ export default {
   data() {
     return {
       menu: [{
-        menuName: '',
-        menuType: '',
+        name: '',
+        type: '',
         perms: '',
         url: '',
         icon: '',
