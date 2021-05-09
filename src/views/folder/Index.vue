@@ -12,6 +12,8 @@
     <!-- 对话框组 -->
     <details-dialog></details-dialog>
     <rename-dialog></rename-dialog>
+    <transfer-dialog></transfer-dialog>
+    <add-folder-dialog></add-folder-dialog>
   </div>
 </template>
 
@@ -20,10 +22,12 @@ import Header from "@/views/folder/components/Header";
 import Table from "@/views/folder/components/Table";
 import RenameDialog from "@/components/common/RenameDialog";
 import DetailsDialog from "@/components/common/DetailsDialog";
+import TransferDialog from "@/components/common/TransferDialog";
+import AddFolderDialog from "@/components/common/AddFolderDialog";
 
 export default {
   name: "Index",
-  components: {Table, Header, RenameDialog, DetailsDialog},
+  components: {AddFolderDialog, TransferDialog, Table, Header, RenameDialog, DetailsDialog},
   watch: {
     folderHash: {
       handler(val) {

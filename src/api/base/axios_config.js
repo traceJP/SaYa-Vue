@@ -36,7 +36,7 @@ instance.interceptors.response.use((response) => {
       // 业务异常
       topMimicBox.error(res.message)
       return response
-    } else if (!res.status) {
+    } else {
       // status不存在: 资源请求业务
       return res
     }

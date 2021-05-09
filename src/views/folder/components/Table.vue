@@ -2,9 +2,19 @@
   <div>
     <el-table
         :data="folderList.filter(data => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase()))"
-        @selection-change="handleSelectionChange" max-height="800" tooltip-effect="dark">
+        highlight-current-row @current-change="handleCurrentChange" @selection-change="handleSelectionChange"
+        max-height="800" tooltip-effect="dark" empty-text="暂无数据,快去上传文件把~">
       <el-table-column type="selection" width="45"></el-table-column>
-      <el-table-column label="名称" min-width="300" prop="name"></el-table-column>
+      <el-table-column label="名称" min-width="300">
+        <template slot-scope="scope">
+          <div class="nameBox">
+            <el-image v-if="scope.row.isRoot" :src="require('@/assets/images/folder-img.png')"></el-image>
+            <el-image v-else-if="scope.row.extension === '.mp3'" :src="require('@/assets/images/music-img.png')"></el-image>
+            <el-image v-else :src="require('@/assets/images/orther-img.png')"></el-image>
+            <div class="font">{{ scope.row.name }}</div>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="修改时间" min-width="110" prop="gmtModified"></el-table-column>
       <el-table-column label="大小" min-width="110" prop="size"></el-table-column>
       <el-table-column min-width="130">
@@ -12,8 +22,13 @@
           <el-input v-model="search" size="mini" placeholder="根据文件名搜索"/>
         </template>
         <template slot-scope="scope">
-          <el-dropdown @click="detailsButton(scope.$index, scope.row)" size="small" split-button type="primary">
-            <span>详细信息</span>
+          <el-dropdown>
+            <el-button-group>
+              <el-button type="primary" size="small" @click.stop="detailsButton(scope.$index, scope.row)">
+                详细信息
+              </el-button>
+              <el-button @click.stop="" type="primary" size="small" icon="el-icon-arrow-down"></el-button>
+            </el-button-group>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item
                   :disabled="!scope.row.isRoot"
@@ -31,7 +46,7 @@
                   :icon="'el-icon-star-on'">取消收藏
               </el-dropdown-item>
               <el-dropdown-item @click.native="renameButton(scope.$index, scope.row)">重命名</el-dropdown-item>
-              <el-dropdown-item>移动</el-dropdown-item>
+              <el-dropdown-item @click.native="transferButton(scope.$index, scope.row)">移动</el-dropdown-item>
               <el-dropdown-item @click.native="removeButton(scope.$index, scope.row)" divided style="color: #f56c6c;">
                 移到回收站
               </el-dropdown-item>
@@ -63,13 +78,16 @@ export default {
     }
   },
   methods: {
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
+    handleSelectionChange(val) {
+      this.$store.commit('setRowsData', val)
+    },
+    // 选择跳转方法
+    handleCurrentChange(val) {
+      if (val.isRoot) {
+        // 文件夹
+        this.$router.push('/folder/' + val.hash)
       } else {
-        this.$refs.multipleTable.clearSelection();
+        // 文件
       }
     },
     // 详细信息按钮方法
@@ -109,7 +127,11 @@ export default {
       this.$store.commit('setRenameDialog', true)
     },
     // 移动按钮方法
-    
+    transferButton(index, row) {
+      this.$store.commit('setCommitType', 'single')
+      this.$store.commit('setRowData', row)
+      this.$store.commit('setTransferDialog', true)
+    },
     // 移动到回收站方法
     removeButton(index, row) {
       if (row.isRoot) {
@@ -130,5 +152,18 @@ export default {
 </script>
 
 <style scoped>
+.nameBox {
+  display: flex;
+  justify-content: left;
+  justify-items: center;
+}
 
+.nameBox > .el-image {
+  width: 32px;
+}
+
+.font {
+  margin-left: 15px;
+  padding-top: 5px;
+}
 </style>

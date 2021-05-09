@@ -45,3 +45,13 @@ export function list(folderHash) {
     },
   })
 }
+
+export function listAll(folderHash) {
+  return request({
+    url: '/folder/listAll',
+    method: 'get',
+    params: {
+      folderHash: folderHash,
+    },
+  })
+}
