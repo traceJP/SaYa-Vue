@@ -1,5 +1,6 @@
 import {get, listAll} from "@/api/folder";
 import button from "@/store/modules/folder/button"
+import {formatCalculate} from "@/utils/baseUtils";
 
 const folder = {
 
@@ -55,7 +56,15 @@ const folder = {
       return state.folderStack
     },
     getFolderContent(state) {
-      return state.folderContent
+      let content = state.folderContent
+      for (let i = 0; i < content.length; i++) {
+        content[i].gmtCreate = content[i].gmtCreate.replace('T', ' / ')
+        content[i].gmtModified = content[i].gmtModified.replace('T', ' / ')
+        if (content[i].size) {
+          content[i].size = formatCalculate(content[i].size)
+        }
+      }
+      return content
     },
   },
 

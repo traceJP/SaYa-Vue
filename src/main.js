@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from '@/router'
 import store from '@/store'
 import ElementUI from 'element-ui'
+import uploader from 'vue-simple-uploader'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css';
@@ -11,6 +12,7 @@ import 'element-ui/lib/theme-chalk/display.css';
 Vue.config.productionTip = true
 
 Vue.use(ElementUI)
+Vue.use(uploader)
 
 Vue.directive('title', {
   inserted: function (el) {

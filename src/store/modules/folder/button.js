@@ -12,6 +12,7 @@ const button = {
     renameDialog: false,
     transferDialog: false,
     addFolderDialog: false,
+    uploadDrawer: false,
   },
 
   mutations: {
@@ -35,6 +36,9 @@ const button = {
     },
     setAddFolderDialog(state, data) {
       state.addFolderDialog = data
+    },
+    setUploadDrawer(state, data) {
+      state.uploadDrawer = data
     },
   },
 
@@ -61,6 +65,9 @@ const button = {
     },
     getAddFolderDialog(state) {
       return state.addFolderDialog
+    },
+    getUploadDrawer(state) {
+      return state.uploadDrawer
     },
   },
 

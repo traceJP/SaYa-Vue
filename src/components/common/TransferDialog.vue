@@ -59,8 +59,13 @@ export default {
       }
       // 遍历发送请求
       arrayData.forEach((v => {
-        v.parentHash = this.currentRow.hash
-        v.isRoot ? updateFolder(v) : updateFile(v)
+        if (v.isRoot) {
+          v.parentHash = this.currentRow.hash
+          updateFolder(v)
+        } else {
+          v.folderHash = this.currentRow.hash
+          updateFile(v)
+        }
       }))
       setTimeout(() => this.$store.dispatch('listContent'), 1500)
       this.isVisible = false

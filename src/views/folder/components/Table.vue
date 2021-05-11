@@ -5,11 +5,15 @@
         highlight-current-row @current-change="handleCurrentChange" @selection-change="handleSelectionChange"
         max-height="800" tooltip-effect="dark" empty-text="暂无数据,快去上传文件把~">
       <el-table-column type="selection" width="45"></el-table-column>
-      <el-table-column label="名称" min-width="300">
+      <el-table-column min-width="300">
+        <template slot="header">
+          <span>名称&nbsp;（共{{ folderList.length }}项）</span>
+        </template>
         <template slot-scope="scope">
           <div class="nameBox">
             <el-image v-if="scope.row.isRoot" :src="require('@/assets/images/folder-img.png')"></el-image>
-            <el-image v-else-if="scope.row.extension === '.mp3'" :src="require('@/assets/images/music-img.png')"></el-image>
+            <el-image v-else-if="scope.row.extension === '.mp3'"
+                      :src="require('@/assets/images/music-img.png')"></el-image>
             <el-image v-else :src="require('@/assets/images/orther-img.png')"></el-image>
             <div class="font">{{ scope.row.name }}</div>
           </div>
@@ -19,7 +23,7 @@
       <el-table-column label="大小" min-width="110" prop="size"></el-table-column>
       <el-table-column min-width="130">
         <template slot="header">
-          <el-input v-model="search" size="mini" placeholder="根据文件名搜索"/>
+          <el-input v-model="search" size="mini" placeholder="根据名称搜索"/>
         </template>
         <template slot-scope="scope">
           <el-dropdown>
@@ -30,9 +34,7 @@
               <el-button @click.stop="" type="primary" size="small" icon="el-icon-arrow-down"></el-button>
             </el-button-group>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                  :disabled="!scope.row.isRoot"
-                  @click.native="downloadButton(scope.$index, scope.row)">下载
+              <el-dropdown-item :disabled="!!scope.row.isRoot" @click.native="downloadButton(scope.$index, scope.row)">下载
               </el-dropdown-item>
               <el-dropdown-item disabled>分享</el-dropdown-item>
               <el-dropdown-item
@@ -83,11 +85,13 @@ export default {
     },
     // 选择跳转方法
     handleCurrentChange(val) {
-      if (val.isRoot) {
-        // 文件夹
-        this.$router.push('/folder/' + val.hash)
-      } else {
-        // 文件
+      if (val) {
+        if (val.isRoot) {
+          // 文件夹
+          this.$router.push('/folder/' + val.hash)
+        } else {
+          // 文件
+        }
       }
     },
     // 详细信息按钮方法
@@ -106,20 +110,11 @@ export default {
       if (info.isRoot) {
         // 文件夹
         updateFolder(info)
-            .then((response) => {
-              if (response.data.status === 200) {
-                this.$store.dispatch('listContent')
-              }
-            })
       } else {
         // 文件
         updateFile(info)
-            .then((response) => {
-              if (response.data.status === 200) {
-                this.$store.dispatch('listContent')
-              }
-            })
       }
+      setTimeout(() => this.$store.dispatch('listContent'), 1000)
     },
     // 重命名按钮方法
     renameButton(index, row) {
@@ -136,16 +131,10 @@ export default {
     removeButton(index, row) {
       if (row.isRoot) {
         trash({hashId: row.hash, hashType: '2'})
-            .then(() => {
-              this.$store.dispatch('listContent')
-            })
       } else {
         trash({hashId: row.hash, hashType: '1'})
-            .then(() => {
-              this.$store.dispatch('listContent')
-            })
       }
-      
+      setTimeout(() => this.$store.dispatch('listContent'), 1000)
     },
   },
 }

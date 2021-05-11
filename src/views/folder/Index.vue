@@ -14,6 +14,7 @@
     <rename-dialog></rename-dialog>
     <transfer-dialog></transfer-dialog>
     <add-folder-dialog></add-folder-dialog>
+    <upload-drawer></upload-drawer>
   </div>
 </template>
 
@@ -24,10 +25,11 @@ import RenameDialog from "@/components/common/RenameDialog";
 import DetailsDialog from "@/components/common/DetailsDialog";
 import TransferDialog from "@/components/common/TransferDialog";
 import AddFolderDialog from "@/components/common/AddFolderDialog";
+import UploadDrawer from "@/components/common/UploadDrawer";
 
 export default {
   name: "Index",
-  components: {AddFolderDialog, TransferDialog, Table, Header, RenameDialog, DetailsDialog},
+  components: {UploadDrawer, AddFolderDialog, TransferDialog, Table, Header, RenameDialog, DetailsDialog},
   watch: {
     folderHash: {
       handler(val) {

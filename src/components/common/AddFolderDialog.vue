@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       ruleForm: {
-        name: '新建文件夹',
+        name: '',
       },
       rules: {
         name: [{required: true, message: '请输入文件夹名', trigger: 'blur'},]
@@ -41,6 +41,11 @@ export default {
         this.$store.commit('setAddFolderDialog', val)
       },
     },
+  },
+  watch: {
+    isVisible() {
+      this.ruleForm.name = '新建文件夹'
+    }
   },
   methods: {
     newFolderButton() {
