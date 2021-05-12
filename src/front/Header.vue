@@ -14,7 +14,7 @@
           </div>
           <div class="leftButton">
             <el-button type="primary">
-              <router-link to="/sign" tag="div">
+              <router-link to="/index" tag="div">
                 开始使用
               </router-link>
             </el-button>

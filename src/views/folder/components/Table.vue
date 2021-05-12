@@ -27,14 +27,12 @@
         </template>
         <template slot-scope="scope">
           <el-dropdown>
-            <el-button-group>
-              <el-button type="primary" size="small" @click.stop="detailsButton(scope.$index, scope.row)">
-                详细信息
-              </el-button>
-              <el-button @click.stop="" type="primary" size="small" icon="el-icon-arrow-down"></el-button>
-            </el-button-group>
+            <el-button type="primary" size="small" @click.stop="detailsButton(scope.$index, scope.row)">
+              详细信息
+            </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :disabled="!!scope.row.isRoot" @click.native="downloadButton(scope.$index, scope.row)">下载
+              <el-dropdown-item :disabled="!!scope.row.isRoot" @click.native="downloadButton(scope.$index, scope.row)">
+                下载
               </el-dropdown-item>
               <el-dropdown-item disabled>分享</el-dropdown-item>
               <el-dropdown-item

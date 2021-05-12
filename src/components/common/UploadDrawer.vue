@@ -58,7 +58,7 @@ export default {
         },
         query: {
           enableChunk: true,
-          folderHash: this.currentFolderHash,
+          folderHash: '',
         },
         headers: {
           token: local.getToken(),
@@ -85,6 +85,14 @@ export default {
     currentFolderHash() {
       return this.$store.getters.getFolderHash
     }
+  },
+  watch: {
+    currentFolderHash: {
+      handler(val) {
+        this.options.query.folderHash = val
+      },
+      immediate: true,
+    },
   },
   methods: {
     handleClose(done) {

@@ -1,17 +1,17 @@
 const userRouterMap = [
   {
-    name: '注册用户页',
+    name: 'index',
     path: '/index',
-    redirect: '/user',
+    redirect: '/drive',
     component: () => import('@/views/Index'),
     children: [
       {
-        name: '云盘操作页',
-        path: '/user',
+        name: 'drive',
+        path: '/drive',
         component: () => import('@/views/drive/Index'),
       },
       {
-        name: '文件夹操作页（通过文件夹id选择）',
+        name: 'folder',
         path: '/folder/:id',
         component: () => import('@/views/folder/Index'),
       },
