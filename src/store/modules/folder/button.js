@@ -1,3 +1,5 @@
+import local from "@/store/local"
+
 const button = {
 
   state: {
@@ -13,6 +15,9 @@ const button = {
     transferDialog: false,
     addFolderDialog: false,
     uploadDrawer: false,
+
+    // 布局样式
+    layoutType: 'grid',
   },
 
   mutations: {
@@ -39,6 +44,10 @@ const button = {
     },
     setUploadDrawer(state, data) {
       state.uploadDrawer = data
+    },
+    setLayoutType(state, data) {
+      state.layoutType = data
+      local.setLayoutType(data)
     },
   },
 
@@ -68,6 +77,9 @@ const button = {
     },
     getUploadDrawer(state) {
       return state.uploadDrawer
+    },
+    getLayoutType(state) {
+      return state.layoutType
     },
   },
 

@@ -9,7 +9,16 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div>
+    <div class="button-group">
+      <!-- 布局切换按钮 -->
+      <div class="layout-group">
+        <el-button v-if="$store.getters.getLayoutType === 'table'"
+                   @click="$store.commit('setLayoutType', 'grid')"
+                   size="mini" type="primary" icon="el-icon-menu"></el-button>
+        <el-button v-else-if="$store.getters.getLayoutType === 'grid'"
+                   @click="$store.commit('setLayoutType', 'table')"
+                   size="mini" type="primary" icon="el-icon-s-data"></el-button>
+      </div>
       <!-- 批量操作按钮组, 收藏 删除 移动 -->
       <transition name="el-fade-in-linear">
         <span v-show="rowsData.length !== 0" class="batchGroup">
@@ -114,6 +123,16 @@ export default {
   justify-content: space-between;
 }
 
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  justify-items: center;
+}
+
+.layout-group {
+  margin: auto 20px;
+}
+
 .batchGroup {
   margin-right: 20px;
 }
@@ -123,7 +142,6 @@ export default {
 }
 
 .el-dropdown {
-  line-height: 100%;
   margin-left: 20px;
 }
 </style>

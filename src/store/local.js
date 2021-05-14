@@ -18,7 +18,20 @@ const local = {
     if (localStorage.getItem("userInfo")) {
       return JSON.parse(localStorage.getItem("userInfo"))
     } else {
-      return null;
+      return null
+    }
+  },
+
+  // 设置布局样式
+  setLayoutType(type) {
+    localStorage.setItem("layoutType", JSON.stringify(type))
+  },
+  // 获取布局样式
+  getLayoutType() {
+    if (localStorage.getItem("layoutType")) {
+      return JSON.parse(localStorage.getItem("layoutType"))
+    } else {
+      return null
     }
   },
 
