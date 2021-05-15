@@ -5,21 +5,10 @@ export default uploadUrl
 
 export function download(fileHash) {
   return request({
-    url: '/file/download',
+    url: '/file/download/' + fileHash,
     method: 'get',
     responseType: 'blob',
     timeout: 0,
-    params: {
-      fileHash: fileHash,
-    },
-  })
-}
-
-export function createFile(data) {
-  return request({
-    url: '/file/create',
-    method: 'post',
-    data: data
   })
 }
 

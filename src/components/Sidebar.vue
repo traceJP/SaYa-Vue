@@ -35,7 +35,7 @@ export default {
   },
   created() {
     // 菜单栏资源请求
-    getMenu().then(response => this.menu = response)
+    getMenu().then(response => this.menu = response.data)
   }
 }
 </script>

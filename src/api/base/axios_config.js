@@ -5,6 +5,10 @@ import {topMimicBox} from "@/utils/mimicbox"
 
 const instance = axios.create({
   baseURL: 'http://localhost:8081',
+  headers: {
+    "Access-Control-Allow-Headers" : "Authorization,Origin, X-Requested-With, Content-Type, Accept",
+    'Content-Type': 'application/json',
+  }
 })
 
 export default instance
@@ -38,7 +42,7 @@ instance.interceptors.response.use((response) => {
       return response
     } else {
       // status不存在: 资源请求业务
-      return res
+      return response
     }
   } else {
     // 服务器响应失败

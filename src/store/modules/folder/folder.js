@@ -22,7 +22,7 @@ const folder = {
   actions: {
     // 通过当前哈希获取文件所有内容
     listContent({state}) {
-      listAll(state.folderHash).then((response) => state.folderContent = response)
+      listAll(state.folderHash).then((response) => state.folderContent = response.data)
     },
     // 获取当前文件信息直到root目录
     getUntilRoot({state, dispatch}) {
@@ -39,10 +39,10 @@ const folder = {
     },
     recursionToRoot({state, dispatch}, hash) {
       get(hash).then((response) => {
-        if (response.isRoot === '0') {
+        if (response.data.isRoot === '0') {
           // 入栈并递归父节点
-          state.folderStack.unshift(response)
-          dispatch('recursionToRoot', response.parentHash)
+          state.folderStack.unshift(response.data)
+          dispatch('recursionToRoot', response.data.parentHash)
         }
       })
     },
