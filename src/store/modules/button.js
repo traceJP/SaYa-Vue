@@ -3,9 +3,11 @@ import local from "@/store/local"
 const button = {
 
   state: {
+
     // 元素行数据
     rowData: '',
     rowsData: [],
+
     // 当前提交类型 single many
     commitType: '',
 

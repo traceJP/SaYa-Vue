@@ -40,6 +40,11 @@ export default {
   // },
   props: {
     item: Object,
+    // 是否开启路由
+    router: {
+      type: Boolean,
+      default: false,
+    },
     // rows: Array,
   },
   computed: {
@@ -68,7 +73,7 @@ export default {
   // },
   methods: {
     routerTo() {
-      if (this.item.isRoot) {
+      if (this.router && this.item.isRoot) {
         this.$router.push(`/folder/${this.item.hash}`)
       }
     },

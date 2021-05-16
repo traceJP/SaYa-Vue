@@ -1,6 +1,6 @@
-import {get, listAll} from "@/api/folder";
-import button from "@/store/modules/folder/button"
-import {formatCalculate} from "@/utils/baseUtils";
+import {get, listAll} from "@/api/folder"
+import {formatCalculate} from "@/utils/baseUtils"
+import local from "@/store/local"
 
 const folder = {
 
@@ -17,12 +17,19 @@ const folder = {
     setFolderHash(state, hash) {
       state.folderHash = hash
     },
+    setFolderContent(state, data) {
+      state.folderContent = data
+    }
   },
 
   actions: {
     // 通过当前哈希获取文件所有内容
     listContent({state}) {
-      listAll(state.folderHash).then((response) => state.folderContent = response.data)
+      const hash = {
+        folderHash: state.folderHash,
+      }
+      const data = Object.assign(local.getOrder(), hash)
+      listAll(data).then((response) => state.folderContent = response.data)
     },
     // 获取当前文件信息直到root目录
     getUntilRoot({state, dispatch}) {
@@ -67,10 +74,6 @@ const folder = {
       return content
     },
   },
-
-  modules: {
-    button: button,
-  }
 
 }
 

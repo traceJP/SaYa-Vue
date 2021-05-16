@@ -19,20 +19,26 @@
                    @click="$store.commit('setLayoutType', 'table')"
                    size="mini" type="primary" icon="el-icon-s-data"></el-button>
       </div>
+      <!-- 排序下拉菜单 -->
+      <order-drop-menu @change="orderChange"></order-drop-menu>
       <!-- 批量操作按钮组, 收藏 删除 移动 -->
-      <transition name="el-fade-in-linear">
-        <span v-show="rowsData.length !== 0" class="batchGroup">
-        <el-button v-if="isAllStarred" @click="starButton" icon="el-icon-star-on" circle type="primary"></el-button>
-        <el-button v-else @click="starButton" icon="el-icon-star-off" circle type="primary"></el-button>
-        <el-popconfirm @confirm="deleteButton" title="确定批量删除所选文件吗？" icon="el-icon-warning" icon-color="#E6A23C"
-                       confirm-button-type="warning">
-          <el-button icon="el-icon-delete" circle type="primary" slot="reference"></el-button>
-        </el-popconfirm>
-        <el-button @click="transferButton" icon="el-icon-place" circle type="primary"></el-button>
-      </span>
-      </transition>
+      <div>
+        <transition name="el-fade-in-linear">
+          <span v-show="rowsData.length !== 0" class="batchGroup">
+            <el-button v-if="isAllStarred" @click="starButton" icon="el-icon-star-on" circle type="primary"></el-button>
+            <el-button v-else @click="starButton" icon="el-icon-star-off" circle type="primary"></el-button>
+            <el-popconfirm @confirm="deleteButton" title="确定批量删除所选文件吗？" icon="el-icon-warning" icon-color="#E6A23C"
+                           confirm-button-type="warning">
+              <el-button icon="el-icon-delete" circle type="primary" slot="reference"></el-button>
+            </el-popconfirm>
+            <el-button @click="transferButton" icon="el-icon-place" circle type="primary"></el-button>
+          </span>
+        </transition>
+      </div>
       <!-- 查询按钮 -->
-      <el-button icon="el-icon-search" circle disabled></el-button>
+      <div>
+        <el-button icon="el-icon-search" circle disabled></el-button>
+      </div>
       <!-- 新建按钮 -->
       <el-dropdown>
         <el-button icon="el-icon-plus" circle type="primary"></el-button>
@@ -50,9 +56,11 @@
 import {updateFolder} from "@/api/folder";
 import {updateFile} from "@/api/file";
 import {trash} from "@/api/recyclebin";
+import OrderDropMenu from "@/components/common/OrderDropMenu";
 
 export default {
   name: "Header",
+  components: {OrderDropMenu},
   computed: {
     breadcrumb() {
       return this.$store.getters.getFolderNameByStack
@@ -111,6 +119,9 @@ export default {
       this.$store.commit('setTransferDialog', true)
       this.$store.commit('setCommitType', 'many')
     },
+    orderChange() {
+      this.$store.dispatch('listContent')
+    }
   },
 }
 </script>
@@ -129,12 +140,8 @@ export default {
   justify-items: center;
 }
 
-.layout-group {
-  margin: auto 20px;
-}
-
-.batchGroup {
-  margin-right: 20px;
+.button-group > div {
+  margin: auto 10px;
 }
 
 .batchGroup > span {

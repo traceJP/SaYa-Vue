@@ -20,3 +20,13 @@ export function updateFile(data) {
   })
 }
 
+export function deleteFile(hash) {
+  return request({
+    url: '/file/delete',
+    method: 'delete',
+    params: {
+      hash: hash,
+    },
+  })
+}
+

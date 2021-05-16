@@ -2,7 +2,7 @@
   <div>
     <div class="master">
       <div v-for="(item, index) in folderList" :key="index">
-        <grid-card-item :item="item">
+        <grid-card-item :item="item" :router="true">
           <drop-menu :scope="item"></drop-menu>
         </grid-card-item>
       </div>

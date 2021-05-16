@@ -12,8 +12,13 @@ const userRouterMap = [
       },
       {
         name: 'folder',
-        path: '/folder/:id',
+        path: '/folder/:id?',
         component: () => import('@/views/folder/Index'),
+      },
+      {
+        name: 'recyclebin',
+        path: '/recyclebin',
+        component: () => import('@/views/recyclebin/Index'),
       },
     ]
   }

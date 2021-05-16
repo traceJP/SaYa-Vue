@@ -15,3 +15,11 @@ export function restore(data) {
     data: data,
   })
 }
+
+export function list(data) {
+  return request({
+    url: '/recyclebin/list',
+    method: 'post',
+    data: data,
+  })
+}

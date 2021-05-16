@@ -8,12 +8,12 @@ export function createFolder(data) {
   })
 }
 
-export function removeFolder(folderHash) {
+export function deleteFolder(hash) {
   return request({
     url: '/folder/delete',
     method: 'delete',
     params: {
-      folderHash: folderHash,
+      hash: hash,
     },
   })
 }
@@ -46,12 +46,10 @@ export function list(folderHash) {
   })
 }
 
-export function listAll(folderHash) {
+export function listAll(data) {
   return request({
-    url: '/folder/listAll',
-    method: 'get',
-    params: {
-      folderHash: folderHash,
-    },
+    url: '/folder/list',
+    method: 'post',
+    data: data,
   })
 }

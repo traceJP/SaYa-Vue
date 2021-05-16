@@ -1,19 +1,17 @@
 const local = {
 
-  // 设置token
+  // token
   setToken(token) {
     localStorage.setItem("token", token)
   },
-  // 获取token
   getToken() {
     return localStorage.getItem("token")
   },
 
-  // 设置用户实体
+  // 用户实体
   setUserInfo(userInfo) {
     localStorage.setItem("userInfo", JSON.stringify(userInfo))
   },
-  // 获取用户实体
   getUserInfo() {
     if (localStorage.getItem("userInfo")) {
       return JSON.parse(localStorage.getItem("userInfo"))
@@ -22,11 +20,10 @@ const local = {
     }
   },
 
-  // 设置布局样式
+  // 布局样式
   setLayoutType(type) {
     localStorage.setItem("layoutType", JSON.stringify(type))
   },
-  // 获取布局样式
   getLayoutType() {
     if (localStorage.getItem("layoutType")) {
       return JSON.parse(localStorage.getItem("layoutType"))
@@ -34,6 +31,19 @@ const local = {
       return null
     }
   },
+
+  // 文件或文件夹排序规则
+  setOrder(order) {
+    localStorage.setItem("order", JSON.stringify(order))
+  },
+  getOrder() {
+    if (localStorage.getItem("order")) {
+      return JSON.parse(localStorage.getItem("order"))
+    } else {
+      return null
+    }
+  },
+
 
   // 清空本地保存
   clear() {
