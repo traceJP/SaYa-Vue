@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {getLoginSms, loginBySms, afterLogin} from "@/api/login";
+import {getLoginSms, login, afterLogin} from "@/api/login";
 
 export default {
   name: "SmsMsg",
@@ -72,7 +72,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          loginBySms(this.ruleForm.phone, this.ruleForm.smsCode)
+          login(this.ruleForm)
               .then((response) => response.data.status === 200 ? afterLogin(response) : this.ruleForm.smsCode = '')
         }
       })

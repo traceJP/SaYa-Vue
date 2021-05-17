@@ -3,25 +3,11 @@ import local from "@/store/local"
 import {resetRouter} from "@/router"
 import router from "@/router"
 
-export function loginByPwd(phone, password) {
+export function login(data) {
   return request({
     url: '/login/pwd',
     method: 'post',
-    params: {
-      'phone' : phone,
-      'password' : password,
-    },
-  })
-}
-
-export function loginBySms(phone, code) {
-  return request({
-    url: '/login/sms',
-    method: 'post',
-    params: {
-      'phone' : phone,
-      'code' : code,
-    },
+    data: data,
   })
 }
 

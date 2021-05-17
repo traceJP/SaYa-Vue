@@ -16,6 +16,11 @@ const userRouterMap = [
         component: () => import('@/views/folder/Index'),
       },
       {
+        name: 'starred',
+        path: '/starred',
+        component: () => import('@/views/starred/Index'),
+      },
+      {
         name: 'recyclebin',
         path: '/recyclebin',
         component: () => import('@/views/recyclebin/Index'),

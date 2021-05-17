@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-form :model="ruleForm" :rules="rules" class="demo-ruleForm" ref="ruleForm" status-icon>
-      <el-form-item prop="account">
-        <el-input autocomplete="off" placeholder="请输入手机号" v-model="ruleForm.account"/>
+      <el-form-item prop="phone">
+        <el-input autocomplete="off" placeholder="请输入手机号" v-model="ruleForm.phone"/>
       </el-form-item>
-      <el-form-item prop="pass">
-        <el-input autocomplete="off" placeholder="登录密码" type="password" v-model="ruleForm.pass"/>
+      <el-form-item prop="password">
+        <el-input autocomplete="off" placeholder="登录密码" type="password" v-model="ruleForm.password"/>
       </el-form-item>
       <el-form-item style="padding: 1rem 5rem">
         <el-button @click="submitForm('ruleForm')" type="primary">登录</el-button>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {loginByPwd, afterLogin} from "@/api/login";
+import {login, afterLogin} from "@/api/login"
 
 export default {
   name: "account",
@@ -32,24 +32,17 @@ export default {
       }
       callback()
     }
-    // 密码输入框校验
-    let validatePass = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('密码不能为空'));
-      }
-      callback()
-    }
     return {
       ruleForm: {
-        account: '',
-        pass: '',
+        phone: '',
+        password: '',
       },
       rules: {
-        account: [
+        phone: [
           {validator: validateAccount, trigger: 'blur'}
         ],
-        pass: [
-          {validator: validatePass, trigger: 'blur'}
+        password: [
+          {required: true, message: '请输入密码', trigger: 'blur'}
         ],
       }
     }
@@ -59,7 +52,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          loginByPwd(this.ruleForm.account, this.ruleForm.pass)
+          login(this.ruleForm)
               .then((response) => response.data.status === 200 ? afterLogin(response) : this.ruleForm.pass = '')
         }
       })

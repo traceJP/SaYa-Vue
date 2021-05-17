@@ -11,26 +11,34 @@
     </el-container>
     <!-- 对话框组 -->
     <details-dialog></details-dialog>
+    <rename-dialog></rename-dialog>
+    <transfer-dialog></transfer-dialog>
+    <add-folder-dialog></add-folder-dialog>
+    <upload-drawer></upload-drawer>
   </div>
 </template>
 
 <script>
-import Header from "@/views/recyclebin/components/Header"
-import Table from "@/views/recyclebin/components/Table"
+import Header from "@/views/folder/components/Header"
+import Table from "@/views/folder/components/Table"
+import RenameDialog from "@/components/common/RenameDialog"
 import DetailsDialog from "@/components/common/DetailsDialog"
-import Grid from "@/views/recyclebin/components/Grid"
+import TransferDialog from "@/components/common/TransferDialog"
+import AddFolderDialog from "@/components/common/AddFolderDialog"
+import UploadDrawer from "@/components/common/UploadDrawer"
+import Grid from "@/views/folder/components/Grid"
 import local from "@/store/local"
 
 export default {
   name: "Index",
-  components: {Grid, Table, Header, DetailsDialog},
+  components: {Grid, UploadDrawer, AddFolderDialog, TransferDialog, Table, Header, RenameDialog, DetailsDialog},
   computed: {
     layoutType() {
       return this.$store.getters.getLayoutType
     },
   },
   mounted() {
-    this.$store.dispatch('listByRecyclebin')
+    this.$store.dispatch('listByStar')
   },
   created() {
     if (local.getLayoutType()) {

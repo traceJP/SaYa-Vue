@@ -46,6 +46,14 @@ export function list(folderHash) {
   })
 }
 
+export function listByStar(data) {
+  return request({
+    url: '/folder/list_star',
+    method: 'post',
+    data: data
+  })
+}
+
 export function listAll(data) {
   return request({
     url: '/folder/list',
