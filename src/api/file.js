@@ -1,6 +1,6 @@
-import request from '@/api/base/axios_config'
+import request, {baseURL} from '@/api/base/axios_config'
 
-const uploadUrl = 'http://localhost:8081/file/upload'
+const uploadUrl = baseURL + '/file/upload'
 export default uploadUrl
 
 export function download(fileHash) {

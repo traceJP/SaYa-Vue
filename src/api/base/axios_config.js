@@ -3,8 +3,10 @@ import local from "@/store/local"
 import router from "@/router"
 import {topMimicBox} from "@/utils/mimicbox"
 
+export const baseURL = 'http://localhost:8081'
+
 const instance = axios.create({
-  baseURL: 'http://localhost:8081',
+  baseURL: baseURL,
   headers: {
     "Access-Control-Allow-Headers" : "Authorization,Origin, X-Requested-With, Content-Type, Accept",
     'Content-Type': 'application/json',

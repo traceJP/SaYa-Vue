@@ -5,7 +5,7 @@
         <el-input autocomplete="off" placeholder="请输入手机号" v-model="ruleForm.phone"/>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input autocomplete="off" placeholder="登录密码" type="password" v-model="ruleForm.password"/>
+        <el-input autocomplete="off" placeholder="登录密码" type="password" v-model="ruleForm.password" show-password/>
       </el-form-item>
       <el-form-item style="padding: 1rem 5rem">
         <el-button @click="submitForm('ruleForm')" type="primary">登录</el-button>

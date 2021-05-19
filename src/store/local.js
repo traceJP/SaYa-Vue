@@ -13,11 +13,7 @@ const local = {
     localStorage.setItem("userInfo", JSON.stringify(userInfo))
   },
   getUserInfo() {
-    if (localStorage.getItem("userInfo")) {
-      return JSON.parse(localStorage.getItem("userInfo"))
-    } else {
-      return null
-    }
+    return JSON.parse(localStorage.getItem("userInfo"))
   },
 
   // 布局样式
@@ -25,11 +21,7 @@ const local = {
     localStorage.setItem("layoutType", JSON.stringify(type))
   },
   getLayoutType() {
-    if (localStorage.getItem("layoutType")) {
-      return JSON.parse(localStorage.getItem("layoutType"))
-    } else {
-      return null
-    }
+    return JSON.parse(localStorage.getItem("layoutType"))
   },
 
   // 文件或文件夹排序规则
@@ -37,11 +29,7 @@ const local = {
     localStorage.setItem("order", JSON.stringify(order))
   },
   getOrder() {
-    if (localStorage.getItem("order")) {
-      return JSON.parse(localStorage.getItem("order"))
-    } else {
-      return null
-    }
+    return JSON.parse(localStorage.getItem("order"))
   },
 
 

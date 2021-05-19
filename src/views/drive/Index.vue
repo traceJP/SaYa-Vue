@@ -16,31 +16,45 @@
       <grid-item :x="layout[1].x" :y="layout[1].y" :w="layout[1].w" :h="layout[1].h" :i="layout[1].i">
         <span class="text">222</span>
       </grid-item>
-      <!-- xx展示框 -->
+      <!-- 激活码表单展示框 -->
       <grid-item :x="layout[2].x" :y="layout[2].y" :w="layout[2].w" :h="layout[2].h" :i="layout[2].i">
-        <span class="text">333</span>
+        <redemption-code></redemption-code>
       </grid-item>
-  
-      <!-- 用户信息展示框 -->
+      <!-- 时钟展示框 -->
       <grid-item :x="layout[3].x" :y="layout[3].y" :w="layout[3].w" :h="layout[3].h" :i="layout[3].i">
+        <clock-box></clock-box>
+      </grid-item>
+      <!-- 用户信息展示框 -->
+      <grid-item :x="layout[4].x" :y="layout[4].y" :w="layout[4].w" :h="layout[4].h" :i="layout[4].i">
         <user-info></user-info>
       </grid-item>
-      
     </grid-layout>
+    <!-- 弹出框组 -->
+    <edit-user-info></edit-user-info>
+    <edit-password></edit-password>
   </div>
 </template>
 
 <script>
 import {GridLayout, GridItem} from "vue-grid-layout"
-import Volume from "@/views/drive/components/Volume";
-import UserInfo from "@/views/drive/components/UserInfo";
+import Volume from "@/views/drive/components/Volume"
+import UserInfo from "@/views/drive/components/UserInfo"
+import EditUserInfo from "@/views/drive/components/EditUserInfo"
+import ClockBox from "@/views/drive/components/ClockBox"
+import RedemptionCode from "@/views/drive/components/RedemptionCode"
+import EditPassword from "@/views/drive/components/EditPassword"
+
 export default {
   name: "Index",
   components: {
+    EditPassword,
+    RedemptionCode,
+    EditUserInfo,
     UserInfo,
     Volume,
     GridLayout,
     GridItem,
+    ClockBox,
   },
   data() {
     return {
@@ -54,9 +68,10 @@ export default {
       },
       layout: [
         {"x": 0, "y": 0, "w": 18, "h": 7, "i": "0"},
-        {"x": 0, "y": 1, "w": 9, "h": 7, "i": "1"},
-        {"x": 9, "y": 1, "w": 9, "h": 7, "i": "2"},
-        {"x": 18, "y": 0, "w": 6, "h": 20, "i": "3"},
+        {"x": 0, "y": 1, "w": 13, "h": 11, "i": "1"},
+        {"x": 13, "y": 1, "w": 11, "h": 6, "i": "2"},
+        {"x": 13, "y": 1, "w": 5, "h": 5, "i": "3"},
+        {"x": 18, "y": 0, "w": 6, "h": 12, "i": "4"},
       ],
     }
   },
