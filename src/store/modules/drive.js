@@ -31,7 +31,7 @@ const drive = {
 
   actions: {
     // 请求刷新用户信息
-    refreshUser(state) {
+    refreshUser({state}) {
       get().then(response => {
         const data = response.data
         state.user = data

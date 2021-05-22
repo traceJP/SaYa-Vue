@@ -18,6 +18,7 @@
 
 import {topMimicBox} from "@/utils/mimicbox"
 import updateURL from "@/api/drive"
+import {staticURL} from "@/api/base/axios_config"
 
 export default {
   name: "UserAvatar",
@@ -29,7 +30,7 @@ export default {
       return updateURL
     },
     imageUrl() {
-      return this.avatar === null ? this.avatar : require('@/assets/images/default-avatar.png')
+      return this.avatar === null ? staticURL + this.avatar : require('@/assets/images/default-avatar.png')
     },
   },
   methods: {

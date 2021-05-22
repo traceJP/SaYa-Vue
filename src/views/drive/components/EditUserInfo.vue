@@ -52,7 +52,7 @@ export default {
           {validator: checkEmail, trigger: 'blur'},
         ],
         sex: [
-          {type: 'date', required: true, message: '请选择性别', trigger: 'blur'},
+          {required: true, message: '请选择性别', trigger: 'blur'},
         ],
       }
     }
@@ -84,8 +84,9 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          updateInfo(this.form)
-          this.$store.dispatch('refreshUser')
+          updateInfo(this.form).then(() => {
+            this.$store.dispatch('refreshUser')
+          })
           this.isVisible = false
         }
       })

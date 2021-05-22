@@ -1,9 +1,11 @@
 <template>
   <div>
+      <!-- TODO:抽象出title标题 -->
     <el-dialog title="移动到其他文件夹" :visible.sync="isVisible" width="30%">
       <el-tree :props="props" :load="loadNode" lazy accordion highlight-current @node-click="handleNodeClick"></el-tree>
       <span slot="footer">
         <el-button @click="isVisible = false">取 消</el-button>
+        <!-- TODO:抽象出button标题 -->
         <el-button type="primary" @click="transferButton">移动到此处</el-button>
       </span>
     </el-dialog>
@@ -11,8 +13,8 @@
 </template>
 
 <script>
-import {list, updateFolder} from "@/api/folder";
-import {updateFile} from "@/api/file";
+import {list, updateFolder} from "@/api/folder"
+import {updateFile} from "@/api/file"
 
 export default {
   name: "TransferDialog",
@@ -47,6 +49,9 @@ export default {
     handleNodeClick(data) {
       this.currentRow = data
     },
+    // TODO: 抽象出按钮提交方法，方法传入参数：currentRow , 使用事件处理
+    // 组件涉及父组件为folder/components/Header.vue中的多选转移和DropMenu.vue的单选转移
+    // 其转移方法可以抽象至vuex中的folder状态中
     transferButton() {
       let type = this.$store.getters.getCommitType
       let arrayData = []
@@ -58,7 +63,7 @@ export default {
         arrayData = JSON.parse(JSON.stringify(this.$store.getters.getRowsData))
       }
       // 遍历发送请求
-      arrayData.forEach((v => {
+      arrayData.forEach(v => {
         if (v.isRoot) {
           v.parentHash = this.currentRow.hash
           updateFolder(v)
@@ -66,7 +71,7 @@ export default {
           v.folderHash = this.currentRow.hash
           updateFile(v)
         }
-      }))
+      })
       setTimeout(() => this.$store.dispatch('listContent'), 1500)
       this.isVisible = false
     },

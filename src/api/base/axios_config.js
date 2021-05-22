@@ -3,7 +3,11 @@ import local from "@/store/local"
 import router from "@/router"
 import {topMimicBox} from "@/utils/mimicbox"
 
+// 后端访问URL
 export const baseURL = 'http://localhost:8081'
+
+// 静态资源URL
+export const staticURL = 'http://localhost:8080/'
 
 const instance = axios.create({
   baseURL: baseURL,

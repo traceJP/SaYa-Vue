@@ -74,7 +74,7 @@ export default {
       return info
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch('initUser')
   },
 }

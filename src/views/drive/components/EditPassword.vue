@@ -4,14 +4,14 @@
       <div class="master">
         <el-form class="form-box" label-position="top" :model="form" :rules="rules" ref="ruleForm">
           <el-form-item v-if="hasPassword" label="旧密码" prop="oldPassword">
-            <el-input v-model="form.oldPassword"></el-input>
+            <el-input v-model="form.oldPassword" show-password></el-input>
           </el-form-item>
           <el-form-item label="新密码" prop="newPassword">
-            <el-input v-model="form.newPassword"></el-input>
+            <el-input v-model="form.newPassword" show-password></el-input>
           </el-form-item>
           <transition name="el-fade-in-linear">
             <el-form-item v-show="form.newPassword" label="确认新密码" prop="checkPassword">
-              <el-input v-model="form.checkPassword"></el-input>
+              <el-input v-model="form.checkPassword" show-password></el-input>
             </el-form-item>
           </transition>
         </el-form>
@@ -34,6 +34,12 @@ export default {
   name: "EditPassword",
   data() {
     let validatePassword = (rule, value, callback) => {
+      // 包含字母+数字
+      const mailReg = /(?=.*[0-9])(?=.*[a-zA-Z])+/
+      if (!mailReg.test(value)) {
+        callback(new Error('新密码需要包含字母和数字'))
+      }
+      // 退出后清空表单，密码校验动态
       if (this.form.checkPassword !== '') {
         this.$refs['ruleForm'].validateField('checkPassword')
       }
@@ -59,11 +65,12 @@ export default {
         ],
         newPassword: [
           {required: true, message: '请输入新密码', trigger: 'blur'},
-          {validator: validatePassword, trigger: 'blur'},
+          {min: 8, message: '长度在不能小于 8 个字符', trigger: ['change', 'blur']},
+          {validator: validatePassword, trigger: ['change', 'blur']},
         ],
         checkPassword: [
           {required: true, message: '请再次输入新密码', trigger: 'blur'},
-          {validator: validateCheckPassword, trigger: 'blur'},
+          {validator: validateCheckPassword, trigger: ['change', 'blur']},
         ],
       }
     }
@@ -79,6 +86,12 @@ export default {
     },
     hasPassword() {
       return this.$store.getters.getUser.hasPassword
+    },
+  },
+  watch: {
+    // 表单清空
+    isVisible() {
+      this.$refs['ruleForm'].resetFields()
     },
   },
   methods: {

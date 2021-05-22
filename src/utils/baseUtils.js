@@ -39,3 +39,18 @@ export function beautySub(str, len) {
   let realen = slice.length * 2 - chineseCharNum
   return str.substr(0, realen) + (realen < str.length ? "..." : "")
 }
+
+/**
+ * 通过扩展名获取对应的文件图片：传入null时返回文件夹图片
+ * @param extension 扩展名
+ */
+export function getFileImage(extension) {
+  switch (extension) {
+    case null:
+      return require('@/assets/images/folder-img.png')
+    case '.mp3':
+      return require('@/assets/images/music-img.png')
+    default :
+      return require('@/assets/images/orther-img.png')
+  }
+}

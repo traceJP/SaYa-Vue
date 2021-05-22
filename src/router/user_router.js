@@ -25,6 +25,16 @@ const userRouterMap = [
         path: '/recyclebin',
         component: () => import('@/views/recyclebin/Index'),
       },
+      {
+        name: 'share',
+        path: '/share',
+        component: () => import('@/views/share/Table'),
+      },
+      {
+        name: 'share',
+        path: '/share/:type/:id',
+        component: () => import('@/views/share/Form'),
+      },
     ]
   }
 ]
