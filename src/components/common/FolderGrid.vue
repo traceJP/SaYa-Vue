@@ -2,21 +2,25 @@
   <div>
     <div class="master">
       <div v-for="(item, index) in folderList" :key="index">
-        <grid-card-item :item="item" :router="true">
-          <drop-menu :scope="item"></drop-menu>
+        <grid-card-item :item="item" :router="isRoute">
+          <slot :scope="item"></slot>
         </grid-card-item>
       </div>
     </div>
-    <div v-if="folderList.length === 0" class="no-data">暂无数据,快去上传文件把~</div>
+    <div v-if="folderList.length === 0" class="no-data">{{ noDataTitle }}</div>
   </div>
 </template>
 
 <script>
-import GridCardItem from "@/components/common/GridCardItem";
-import DropMenu from "@/views/folder/components/DropMenu";
+import GridCardItem from "@/components/common/GridCardItem"
+
 export default {
-  name: "Grid",
-  components: {DropMenu, GridCardItem},
+  name: "FolderGrid",
+  components: {GridCardItem},
+  props: {
+    noDataTitle: String,
+    isRoute: Boolean,
+  },
   computed: {
     folderList() {
       return this.$store.getters.getFolderContent
@@ -59,7 +63,5 @@ export default {
   color: #909399;
   font-size: 18px;
 }
-
-
 
 </style>

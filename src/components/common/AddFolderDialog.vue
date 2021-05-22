@@ -51,7 +51,9 @@ export default {
     newFolderButton() {
       const parentHash = this.$store.getters.getFolderHash
       createFolder({name: this.ruleForm.name, parentHash: parentHash})
-          .then(() => this.$store.dispatch('listContent'))
+          .then(() => {
+            this.$emit('refresh-data')
+          })
       this.isVisible = false
     },
     selectContent(e) {

@@ -26,11 +26,11 @@ export default {
       } else {
         restore({hashId: row.hash, hashType: '1'})
       }
-      setTimeout(() => this.$store.dispatch('listByRecyclebin'), 1000)
+      setTimeout(() => this.$emit('refresh-data'), 1000)
     },
     deleteButton(index, row) {
       row.isRoot ? deleteFolder(row.hash) : deleteFile(row.hash)
-      setTimeout(() => this.$store.dispatch('listByRecyclebin'), 1000)
+      setTimeout(() => this.$emit('refresh-data'), 1000)
     },
   },
 }

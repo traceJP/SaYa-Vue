@@ -3,7 +3,7 @@
     <el-table
         :data="folderList.filter(data => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase()))"
         highlight-current-row @current-change="handleCurrentChange" @selection-change="handleSelectionChange"
-        max-height="800" tooltip-effect="dark" empty-text="暂无数据,快去上传文件把~">
+        max-height="800" tooltip-effect="dark" :empty-text="noDataTitle">
       <el-table-column type="selection" width="45"></el-table-column>
       <el-table-column min-width="300">
         <template slot="header">
@@ -11,10 +11,7 @@
         </template>
         <template slot-scope="scope">
           <div class="nameBox">
-            <el-image v-if="scope.row.isRoot" :src="require('@/assets/images/folder-img.png')"></el-image>
-            <el-image v-else-if="scope.row.extension === '.mp3'"
-                      :src="require('@/assets/images/music-img.png')"></el-image>
-            <el-image v-else :src="require('@/assets/images/orther-img.png')"></el-image>
+            <el-image :src="getFileImage(scope.row.extension)"></el-image>
             <div class="font">{{ scope.row.name }}</div>
           </div>
         </template>
@@ -30,7 +27,7 @@
             <el-button type="primary" size="small" @click.stop="detailsButton(scope.$index, scope.row)">
               详细信息
             </el-button>
-            <drop-menu :scope="scope.row"></drop-menu>
+            <slot :scope="scope.row"></slot>
           </el-dropdown>
         </template>
       </el-table-column>
@@ -39,11 +36,14 @@
 </template>
 
 <script>
-import DropMenu from "@/views/folder/components/DropMenu";
+import {getFileImage} from "@/utils/baseUtils"
 
 export default {
-  name: "Table",
-  components: {DropMenu},
+  name: "FolderTable",
+  props: {
+    noDataTitle: String,
+    isRoute: Boolean,
+  },
   data() {
     return {
       // 搜索框
@@ -61,12 +61,14 @@ export default {
     },
     // 选择跳转方法
     handleCurrentChange(val) {
-      if (val) {
-        if (val.isRoot) {
-          // 文件夹
-          this.$router.push('/folder/' + val.hash)
-        } else {
-          // 文件
+      if (this.isRoute) {
+        if (val) {
+          if (val.isRoot) {
+            // 文件夹
+            this.$router.push('/folder/' + val.hash)
+          } else {
+            // 文件
+          }
         }
       }
     },
@@ -75,6 +77,9 @@ export default {
       this.$store.commit('setRowData', row)
       this.$store.commit('setDetailsDialog', true)
     },
+    getFileImage(ex) {
+      return getFileImage(ex)
+    }
   },
 }
 </script>

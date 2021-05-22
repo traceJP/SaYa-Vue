@@ -56,20 +56,20 @@ export default {
         if (valid) {
           let info = JSON.parse(JSON.stringify(this.rowData))
           info.name = this.ruleForm.name
-          if (this.rowData.isRoot) {
-            // 文件夹
-            updateFolder(info).then((response) => {
-              if (response.data.status === 200) {
-                this.isVisible = false
-                this.$store.dispatch('listContent')
-              }
-            })
-          } else {
+          if (this.rowData.extension) {
             // 文件
             updateFile(info).then((response) => {
               if (response.data.status === 200) {
                 this.isVisible = false
-                this.$store.dispatch('listContent')
+                this.$emit('refresh-data')
+              }
+            })
+          } else {
+            // 文件夹
+            updateFolder(info).then((response) => {
+              if (response.data.status === 200) {
+                this.isVisible = false
+                this.$emit('refresh-data')
               }
             })
           }

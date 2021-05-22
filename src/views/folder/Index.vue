@@ -2,36 +2,51 @@
   <div>
     <el-container>
       <el-header>
-        <Header class="header"></Header>
+        <Header class="header" @refresh-data="refreshData"></Header>
       </el-header>
       <el-main>
-        <Table v-show="layoutType === 'table'"></Table>
-        <Grid v-show="layoutType === 'grid'"></Grid>
+        <FolderTable v-show="layoutType === 'table'" v-slot="props" :is-route="true" no-data-title="您还没有上传文件呢，快去上传文件把~">
+          <drop-menu :scope="props.scope" @refresh-data="refreshData"></drop-menu>
+        </FolderTable>
+        <FolderGrid v-show="layoutType === 'grid'" v-slot="props" :is-route="true" no-data-title="您还没有上传文件呢，快去上传文件把~">
+          <drop-menu :scope="props.scope" @refresh-data="refreshData"></drop-menu>
+        </FolderGrid>
       </el-main>
     </el-container>
     <!-- 对话框组 -->
     <details-dialog></details-dialog>
-    <rename-dialog></rename-dialog>
-    <transfer-dialog></transfer-dialog>
-    <add-folder-dialog></add-folder-dialog>
+    <rename-dialog @refresh-data="refreshData"></rename-dialog>
+    <transfer-dialog @refresh-data="refreshData"></transfer-dialog>
+    <add-folder-dialog @refresh-data="refreshData"></add-folder-dialog>
     <upload-drawer></upload-drawer>
   </div>
 </template>
 
 <script>
 import Header from "@/views/folder/components/Header";
-import Table from "@/views/folder/components/Table";
+import FolderTable from "@/components/common/FolderTable";
 import RenameDialog from "@/components/common/RenameDialog";
 import DetailsDialog from "@/components/common/DetailsDialog";
 import TransferDialog from "@/components/common/TransferDialog";
 import AddFolderDialog from "@/components/common/AddFolderDialog";
 import UploadDrawer from "@/components/common/UploadDrawer";
-import Grid from "@/views/folder/components/Grid";
+import FolderGrid from "@/components/common/FolderGrid";
 import local from "@/store/local";
+import DropMenu from "@/views/folder/components/DropMenu";
 
 export default {
   name: "Index",
-  components: {Grid, UploadDrawer, AddFolderDialog, TransferDialog, Table, Header, RenameDialog, DetailsDialog},
+  components: {
+    DropMenu,
+    FolderGrid,
+    UploadDrawer,
+    AddFolderDialog,
+    TransferDialog,
+    FolderTable,
+    Header,
+    RenameDialog,
+    DetailsDialog
+  },
   watch: {
     folderHash: {
       handler(val) {
@@ -49,6 +64,11 @@ export default {
     layoutType() {
       return this.$store.getters.getLayoutType
     },
+  },
+  methods: {
+    refreshData() {
+      this.$store.dispatch('listContent')
+    }
   },
   created() {
     if (local.getLayoutType()) {

@@ -41,14 +41,14 @@ export default {
     starButton(index, row) {
       let info = JSON.parse(JSON.stringify(row))
       info.starredFlag = info.starredFlag === '1' ? '0' : '1'
-      if (info.isRoot) {
-        // 文件夹
-        updateFolder(info)
-      } else {
+      if (info.extension) {
         // 文件
         updateFile(info)
+      } else {
+        // 文件夹
+        updateFolder(info)
       }
-      setTimeout(() => this.$store.dispatch('listContent'), 1000)
+      setTimeout(() => this.$emit('refresh-data'), 1000)
     },
     // 重命名按钮方法
     renameButton(index, row) {
@@ -63,12 +63,12 @@ export default {
     },
     // 移动到回收站方法
     removeButton(index, row) {
-      if (row.isRoot) {
-        trash({hashId: row.hash, hashType: '2'})
-      } else {
+      if (row.extension) {
         trash({hashId: row.hash, hashType: '1'})
+      } else {
+        trash({hashId: row.hash, hashType: '2'})
       }
-      setTimeout(() => this.$store.dispatch('listContent'), 1000)
+      setTimeout(() => this.$emit('refresh-data'), 1000)
     },
   },
 }

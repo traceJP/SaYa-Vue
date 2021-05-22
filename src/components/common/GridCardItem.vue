@@ -3,9 +3,7 @@
     <!-- 元素展示组 -->
     <div class="grid-item" @click="routerTo">
       <div>
-        <el-image v-if="item.isRoot" :src="require('@/assets/images/folder-img.png')"></el-image>
-        <el-image v-else-if="item.extension === '.mp3'" :src="require('@/assets/images/music-img.png')"></el-image>
-        <el-image v-else :src="require('@/assets/images/orther-img.png')"></el-image>
+        <el-image :src="getFileImage(item.extension)"></el-image>
       </div>
       <div>{{ itemName }}</div>
       <div class="time-font">{{ itemModifiedTime }}</div>
@@ -26,7 +24,7 @@
 </template>
 
 <script>
-import {beautySub} from "@/utils/baseUtils"
+import {beautySub, getFileImage} from "@/utils/baseUtils"
 
 export default {
   name: "GridCardItem",
@@ -81,6 +79,9 @@ export default {
     //   this.checkStyle.display = val ? 'block' : ''
     //   this.$emit('checkChange', val, this.item)
     // },
+    getFileImage(ex) {
+      return getFileImage(ex)
+    },
   },
 }
 </script>

@@ -2,11 +2,15 @@
   <div>
     <el-container>
       <el-header>
-        <Header class="header"></Header>
+        <Header class="header" @refresh-data="refreshData"></Header>
       </el-header>
       <el-main>
-        <Table v-show="layoutType === 'table'"></Table>
-        <Grid v-show="layoutType === 'grid'"></Grid>
+        <FolderTable v-show="layoutType === 'table'" v-slot="props" :is-route="false" no-data-title="您还没有删除文件呢~">
+          <drop-menu :scope="props.scope" @refresh-data="refreshData"></drop-menu>
+        </FolderTable>
+        <FolderGrid v-show="layoutType === 'grid'" v-slot="props" :is-route="false" no-data-title="您还没有删除文件呢~">
+          <drop-menu :scope="props.scope" @refresh-data="refreshData"></drop-menu>
+        </FolderGrid>
       </el-main>
     </el-container>
     <!-- 对话框组 -->
@@ -16,21 +20,27 @@
 
 <script>
 import Header from "@/views/recyclebin/components/Header"
-import Table from "@/views/recyclebin/components/Table"
+import FolderTable from "@/components/common/FolderTable"
 import DetailsDialog from "@/components/common/DetailsDialog"
-import Grid from "@/views/recyclebin/components/Grid"
+import FolderGrid from "@/components/common/FolderGrid"
+import DropMenu from "@/views/recyclebin/components/DropMenu"
 import local from "@/store/local"
 
 export default {
   name: "Index",
-  components: {Grid, Table, Header, DetailsDialog},
+  components: {DropMenu, FolderGrid, FolderTable, Header, DetailsDialog},
   computed: {
     layoutType() {
       return this.$store.getters.getLayoutType
     },
   },
+  methods: {
+    refreshData() {
+      this.$store.dispatch('listByRecyclebin')
+    }
+  },
   mounted() {
-    this.$store.dispatch('listByRecyclebin')
+    this.refreshData()
   },
   created() {
     if (local.getLayoutType()) {

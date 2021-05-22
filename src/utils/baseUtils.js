@@ -46,7 +46,7 @@ export function beautySub(str, len) {
  */
 export function getFileImage(extension) {
   switch (extension) {
-    case null:
+    case undefined:
       return require('@/assets/images/folder-img.png')
     case '.mp3':
       return require('@/assets/images/music-img.png')

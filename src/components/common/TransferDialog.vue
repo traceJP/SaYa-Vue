@@ -44,14 +44,12 @@ export default {
       if (node.level === 0) {
         return resolve([{name: "根目录", hash: "root"}])
       }
-      list(node.data.hash).then((response) => resolve(response))
+      list(node.data.hash).then((response) => resolve(response.data))
     },
     handleNodeClick(data) {
       this.currentRow = data
     },
     // TODO: 抽象出按钮提交方法，方法传入参数：currentRow , 使用事件处理
-    // 组件涉及父组件为folder/components/Header.vue中的多选转移和DropMenu.vue的单选转移
-    // 其转移方法可以抽象至vuex中的folder状态中
     transferButton() {
       let type = this.$store.getters.getCommitType
       let arrayData = []
@@ -72,7 +70,7 @@ export default {
           updateFile(v)
         }
       })
-      setTimeout(() => this.$store.dispatch('listContent'), 1500)
+      setTimeout(() =>  this.$emit('refresh-data'), 1000)
       this.isVisible = false
     },
   },

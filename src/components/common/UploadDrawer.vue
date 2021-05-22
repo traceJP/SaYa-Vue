@@ -89,7 +89,7 @@ export default {
   watch: {
     currentFolderHash: {
       handler(val) {
-        this.options.query.folderHash = val
+        this.options.query.folderHash = val === undefined ? 'root' : val
       },
       immediate: true,
     },
